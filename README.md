@@ -2,6 +2,8 @@
 
 Dead simple plugin to fetch header over the internet.
 
+[![asciicast](https://asciinema.org/a/scKe9FBPrvXccv2WQHNvfI2K2.svg)](https://asciinema.org/a/scKe9FBPrvXccv2WQHNvfI2K2)
+
 ## Required
 
 You need curl installed to make the plugin work.
