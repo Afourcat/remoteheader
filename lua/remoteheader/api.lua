@@ -14,8 +14,7 @@ function get_file_ext()
     return filename:match('.([^..]*)$')
 end
 
-function insert_header()
-    local addr = vim.api.nvim_get_var('remote_header_addr')
+function insert_header(addr)
     if addr == nil then
         print 'You need to set the global variable g:remote_header_addr.'
         return nil
