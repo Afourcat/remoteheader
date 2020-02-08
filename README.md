@@ -1,6 +1,10 @@
-# nvim-example-lua-plugin
+# Remote Header
 
-This is a simple Neovim plugin to print stuff when `nvim` is starting up.
+Dead simple plugin to fetch header over the internet.
+
+## Required
+
+You need curl installed to make the plugin work.
 
 ## Installation
 
@@ -19,7 +23,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
     " You probably have a number of other plugins listed here.
 
     " Add this line to make your new plugin load, assuming you haven't renamed it.
-    NeoBundle 'nvim-example-python-plugin'
+    NeoBundle 'remoteheader'
 call neobundle#end()
 ```
 
@@ -28,8 +32,24 @@ call neobundle#end()
 An example of how to load this plugin using vim-plug:
 
 ```VimL
-Plug 'jacobsimpson/nvim-example-python-plugin'
+Plug 'Afourcat/remoteheader'
 ```
 
-After running `:PlugInstall`, the files should appear in your `~/.config/nvim/plugged` directory (or whatever path you have configured for plugins).
+After running `:PlugInstall`, the files should appear in your
+`~/.config/nvim/plugged` directory (or whatever path you have configured for plugins).
 
+## Configuration
+
+You need to register a address for each filetype.
+
+```VimL
+let g:remote_header_addr = {
+    \ 'c': 'http://raw_c_header.my.com',
+    \ 'cpp': 'http://raw_c_header.my.com',
+    \ 'cxx': 'http://raw_c_header.my.com',
+    \ 'rs': 'http://raw_rust_header.my.com',
+    \ 'default': 'https://common_header.my.com',
+    \ }
+```
+
+The `default` address is used for extensions that doesn't match defined ones.
