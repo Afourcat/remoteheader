@@ -56,7 +56,7 @@ end
 function find_project_name()
     local handle = io.popen('git rev-parse --show-toplevel')
     local res = handle:read('*a')
-    handle:close()
+    local r = { handle:close() }
     if res == nil
         then return 'Unknown project'
         else return res:match('^.+/(.+)$'):gsub("\n", "")

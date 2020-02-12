@@ -2,7 +2,7 @@
 
 Dead simple plugin to fetch header over the internet.
 
-[![asciicast](https://asciinema.org/a/scKe9FBPrvXccv2WQHNvfI2K2.svg)](https://asciinema.org/a/scKe9FBPrvXccv2WQHNvfI2K2)
+[![asciicast](https://asciinema.org/a/fSw7urSxumJzVP75CR2vDNh5k.svg)](https://asciinema.org/a/fSw7urSxumJzVP75CR2vDNh5k)
 
 ## Required
 
