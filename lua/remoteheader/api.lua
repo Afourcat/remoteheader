@@ -45,7 +45,7 @@ function eval_command(command)
     local filename = vim.api.nvim_call_function("expand", { "%:t" })
     local replacement = {
         filename = filename,
-        projectName = find_project_name(),
+        project = find_project_name(),
         description =  vim.api.nvim_call_function("input", { "Enter a description: " })
     }
 
@@ -57,7 +57,10 @@ function find_project_name()
     local handle = io.popen('git rev-parse --show-toplevel')
     local res = handle:read('*a')
     handle:close()
-    return res:match('^.+/(.+)$'):gsub("\n", "")
+    if res == nil
+        then return 'Unknown project'
+        else return res:match('^.+/(.+)$'):gsub("\n", "")
+    end
 end
 
 function insert_top(lines)
