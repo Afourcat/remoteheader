@@ -33,11 +33,31 @@ function insert_custom_header(url)
 end
 
 function fetch_header(url)
-    local handle = io.popen('curl -s ' .. url)
+    local evaluated_command = eval_command(url)
+    local handle = io.popen('curl -s "' .. evaluated_command .. '"')
     local res = handle:read('*a')
     handle:close()
 
     return split(res, '\n')
+end
+
+function eval_command(command)
+    local filename = vim.api.nvim_call_function("expand", { "%:t" })
+    local replacement = {
+        filename = filename,
+        projectName = find_project_name(),
+        description =  vim.api.nvim_call_function("input", { "Enter a description: " })
+    }
+
+    local new = string.gsub(command, "%$(%w+)", replacement)
+    return string.gsub(new, " ", "%%20")
+end
+
+function find_project_name()
+    local handle = io.popen('git rev-parse --show-toplevel')
+    local res = handle:read('*a')
+    handle:close()
+    return res:match('^.+/(.+)$'):gsub("\n", "")
 end
 
 function insert_top(lines)
