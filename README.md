@@ -55,3 +55,8 @@ let g:remote_header_addr = {
 ```
 
 The `default` address is used for extensions that doesn't match defined ones.
+
+Their is also special variables that can be replaced by the plugin before being used.
+
+`$filename`: Replaced by the name of the current buffer.
+`$project`: Replaced by the name of the current project (The directory containing .git)
