@@ -41,16 +41,44 @@ function fetch_header(url)
     return split(res, '\n')
 end
 
+-- Code from gist https://gist.github.com/liukun/f9ce7d6d14fa45fe9b924a3eed5c3d99
+local char_to_hex = function(c)
+  return string.format("%%%02X", string.byte(c))
+end
+
+local function urlencode(url)
+  if url == nil then
+    return
+  end
+  url = url:gsub("\n", "\r\n")
+  url = url:gsub("([^%w ])", char_to_hex)
+  url = url:gsub(" ", "+")
+  return url
+end
+
+local hex_to_char = function(x)
+  return string.char(tonumber(x, 16))
+end
+
+local urldecode = function(url)
+  if url == nil then
+    return
+  end
+  url = url:gsub("+", " ")
+  url = url:gsub("%%(%x%x)", hex_to_char)
+  return url
+end
+-- End
+
 function eval_command(command)
     local filename = vim.api.nvim_call_function("expand", { "%:t" })
     local replacement = {
-        filename = filename,
-        project = find_project_name(),
-        description =  vim.api.nvim_call_function("input", { "Enter a description: " })
+        filename = urlencode(filename),
+        project = urlencode(find_project_name()),
+        description =  urlencode(vim.api.nvim_call_function("input", { "Enter a description: " }))
     }
 
-    local new = string.gsub(command, "%$(%w+)", replacement)
-    return string.gsub(new, " ", "%%20")
+    return string.gsub(command, "%$(%w+)", replacement)
 end
 
 function find_project_name()
